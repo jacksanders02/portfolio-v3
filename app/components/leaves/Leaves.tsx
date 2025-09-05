@@ -1,11 +1,21 @@
 import React from "react";
 import Leaf from "./Leaf";
 
+// Random leaf colours, weighted towards green
+const LEAF_COLOURS = [
+  "#8BA726",
+  "#8BA726",
+  "#8BA726",
+  "#D9D32F",
+  "#D9D32F",
+  "#FF9828",
+]
+
 export default function Leaves(): React.ReactElement {
   const [mousePos, setMousePos] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const leafContainerRef = React.useRef<HTMLDivElement>(null);
-  const masterLeafRef = React.useRef<SVGSVGElement>(null);
+  const masterLeafRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     function handleMouseMove(event: MouseEvent) {
@@ -18,7 +28,11 @@ export default function Leaves(): React.ReactElement {
       const startRotation = -15 + Math.random() * 30;
       const endRotation = startRotation + (-15 + Math.random() * 30);
 
-      const newLeaf = masterLeafRef.current.cloneNode(true) as SVGSVGElement;
+      const newLeaf = masterLeafRef.current.cloneNode(true) as HTMLDivElement;
+      const leafSvg = newLeaf.querySelector("svg") as SVGSVGElement;
+
+      leafSvg.style.transform = `rotate(${-90 + Math.random() * 270}deg) scale(${0.5 + Math.random()})`;
+      leafSvg.style.fill = LEAF_COLOURS[Math.floor(Math.random() * LEAF_COLOURS.length)];
       leafContainerRef.current.appendChild(newLeaf);
 
       newLeaf.classList.remove("hidden");
@@ -56,7 +70,9 @@ export default function Leaves(): React.ReactElement {
         pointerEvents: "none",
       }}
     >
-      <Leaf ref={masterLeafRef} className="w-4 h-4 hidden fixed" />
+      <div ref={masterLeafRef} className="w-4 h-4 hidden fixed">
+        <Leaf className="w-full h-full" />
+      </div>
     </div>
   );
 }
