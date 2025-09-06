@@ -19,12 +19,15 @@ const Leaves = (): React.ReactElement => {
       if (!masterLeafRef.current) return; // Ensure refs are set
       if (Math.random() > 0.66) return; // Limit leaf spawn rate
 
-      const startRotation = -15 + Math.random() * 30;
-      const endRotation = startRotation + (-15 + Math.random() * 30);
-
+      // Instantiate new leaf by cloning the main one
       const newLeaf = masterLeafRef.current.cloneNode(true) as HTMLDivElement;
       masterLeafRef.current.parentElement?.appendChild(newLeaf);
 
+      newLeaf.classList.remove('hidden');
+      newLeaf.style.top = `${event.clientY}px`;
+      newLeaf.style.left = `${event.clientX}px`;
+
+      // Randomise leaf appearance
       const leafSvg = newLeaf.querySelector('svg') as SVGSVGElement;
       const leafRotation = -90 + Math.random() * 270;
       const leafScale = 0.5 + Math.random();
@@ -32,19 +35,18 @@ const Leaves = (): React.ReactElement => {
       leafSvg.style.transform = `rotate(${leafRotation}deg) scale(${leafScale})`;
       leafSvg.style.fill = LEAF_COLOURS[Math.floor(Math.random() * LEAF_COLOURS.length)];
 
-      newLeaf.classList.remove('hidden');
-      newLeaf.style.top = `${event.clientY}px`;
-      newLeaf.style.left = `${event.clientX}px`;
-
+      // Animate
+      const startRotation = -15 + Math.random() * 30;
+      const endRotation = startRotation + (-15 + Math.random() * 30);
       newLeaf.animate(
         [
-          { transform: `rotate(${startRotation}deg) translate(0, 0)`, opacity: 1 },
-          { transform: `rotate(${endRotation}deg) translate(0, 300px)`, opacity: 0 },
+          { transform: `rotate(${startRotation}deg) translateY(0)`, opacity: 1 },
+          { transform: `rotate(${endRotation}deg) translateY(300px)`, opacity: 0 },
         ],
         {
           duration: 1500 + Math.random() * 1000,
           iterations: 1,
-          easing: 'linear',
+          easing: 'cubic-bezier(0.11, 0, 0.5, 0)',
         },
       ).finished.then(() => {
         // Remove leaf after animation
@@ -54,6 +56,7 @@ const Leaves = (): React.ReactElement => {
 
     window.addEventListener('mousemove', handleMouseMove);
 
+    // Clean up effect
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
@@ -61,7 +64,7 @@ const Leaves = (): React.ReactElement => {
 
   return (
     <div>
-      <div ref={masterLeafRef} className="w-4 h-4 hidden fixed">
+      <div ref={masterLeafRef} className="w-4 h-4 hidden fixed pointer-events-none">
         <Leaf className="w-full h-full" />
       </div>
     </div>
