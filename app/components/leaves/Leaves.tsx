@@ -17,13 +17,13 @@ const Leaves = (): React.ReactElement => {
   React.useEffect(() => {
     function handleMouseMove(event: MouseEvent) {
       if (!masterLeafRef.current) return; // Ensure refs are set
-      if (Math.random() > 0.66) return; // Limit leaf spawn rate
+      if (Math.random() > 0.66) return; // Limit leaf spawn rate -- 2 in 3 chance of spawning
 
       // Instantiate new leaf by cloning the main one
       const newLeaf = masterLeafRef.current.cloneNode(true) as HTMLDivElement;
       masterLeafRef.current.parentElement?.appendChild(newLeaf);
 
-      newLeaf.classList.remove('hidden');
+      newLeaf.style.display = 'block';
       newLeaf.style.top = `${event.clientY}px`;
       newLeaf.style.left = `${event.clientX}px`;
 
@@ -64,7 +64,11 @@ const Leaves = (): React.ReactElement => {
 
   return (
     <div>
-      <div ref={masterLeafRef} className="w-4 h-4 hidden fixed pointer-events-none">
+      <div
+        ref={masterLeafRef}
+        className="w-4 h-4 fixed pointer-events-none"
+        style={{ display: 'none' }} // Use style instead of class to prevent FOUC
+      >
         <Leaf className="w-full h-full" />
       </div>
     </div>
