@@ -1,6 +1,6 @@
-/* eslint-disable @stylistic/max-len -- SVG */
-import React from 'react';
+import type { ReactElement } from "react";
 
+/* eslint-disable @stylistic/max-len -- SVG */
 const Leaf = ({
   height,
   width,
@@ -9,7 +9,7 @@ const Leaf = ({
   height?: string | number;
   width?: string | number;
   [key: string]: unknown;
-}): React.ReactElement => (
+}): ReactElement => (
   <svg
     id="Layer_1"
     version="1.0"

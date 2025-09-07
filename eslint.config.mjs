@@ -41,6 +41,7 @@ const reactConfig = [
   // Strict React Config
   rules.react.strict,
   // Custom rules for React
+  plugins.react.configs.flat['jsx-runtime'], // Enable new JSX Transform
   {
     rules: {
       'react/jsx-sort-props': [

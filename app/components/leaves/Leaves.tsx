@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useRef, type ReactElement } from 'react';
 import Leaf from './Leaf';
 
 // Random leaf colours, weighted towards green
@@ -11,10 +11,10 @@ const LEAF_COLOURS = [
   '#FF9828',
 ];
 
-const Leaves = (): React.ReactElement => {
-  const masterLeafRef = React.useRef<HTMLDivElement>(null);
+const Leaves = (): ReactElement => {
+  const masterLeafRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     function handleMouseMove(event: MouseEvent) {
       if (!masterLeafRef.current) return; // Ensure refs are set
       if (Math.random() > 0.66) return; // Limit leaf spawn rate -- 2 in 3 chance of spawning

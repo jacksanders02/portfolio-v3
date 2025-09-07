@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -12,6 +11,7 @@ import type { Route } from './+types/root';
 import './app.css';
 import Navbar from './components/navbar/Navbar';
 import Leaves from './components/leaves/Leaves';
+import type { ReactElement, ReactNode } from 'react';
 
 const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -31,7 +31,7 @@ const links: Route.LinksFunction = () => [
   },
 ];
 
-const Layout = ({ children }: { children: React.ReactNode }): React.ReactElement => (
+const Layout = ({ children }: { children: ReactNode }): ReactElement => (
   <html lang="en">
     <head>
       <meta charSet="utf-8" />
@@ -56,9 +56,9 @@ const Layout = ({ children }: { children: React.ReactNode }): React.ReactElement
   </html>
 );
 
-const App = (): React.ReactElement => <Outlet />;
+const App = (): ReactElement => <Outlet />;
 
-const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps): React.ReactElement => {
+const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps): ReactElement => {
   let message = 'Oops!';
   let details = 'An unexpected error occurred.';
   let stack: string | undefined;
