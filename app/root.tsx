@@ -10,8 +10,9 @@ import {
 import type { ReactElement, ReactNode } from 'react';
 import type { Route } from './+types/root';
 import './app.css';
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/Navbar';
 import Leaves from './components/leaves/Leaves';
+import MouseTrail from './components/mouse-trail/MouseTrail';
 
 const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -41,6 +42,7 @@ const Layout = ({ children }: { children: ReactNode }): ReactElement => (
     </head>
     <body className="min-h-screen flex flex-col">
       <Leaves />
+      <MouseTrail />
       <Navbar />
 
       <main className="flex-1">
