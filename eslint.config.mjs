@@ -3,6 +3,7 @@ import path from 'node:path';
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
 import { configs, plugins, rules } from 'eslint-config-airbnb-extended';
+import reactPlugin from 'eslint-plugin-react';
 
 const gitignorePath = path.resolve('.', '.gitignore');
 
@@ -41,7 +42,7 @@ const reactConfig = [
   // Strict React Config
   rules.react.strict,
   // Custom rules for React
-  plugins.react.configs.flat['jsx-runtime'], // Enable new JSX Transform
+  reactPlugin.configs.flat['jsx-runtime'], // Enable new JSX Transform
   {
     rules: {
       'react/jsx-sort-props': [

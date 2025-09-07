@@ -7,11 +7,11 @@ import {
   ScrollRestoration,
 } from 'react-router';
 
+import type { ReactElement, ReactNode } from 'react';
 import type { Route } from './+types/root';
 import './app.css';
 import Navbar from './components/navbar/Navbar';
 import Leaves from './components/leaves/Leaves';
-import type { ReactElement, ReactNode } from 'react';
 
 const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

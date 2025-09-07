@@ -63,7 +63,7 @@ const Leaves = (): ReactElement => {
   }, []);
 
   return (
-    <div className='z-10'>
+    <div className="z-10">
       <div
         ref={masterLeafRef}
         className="w-4 h-4 fixed pointer-events-none"

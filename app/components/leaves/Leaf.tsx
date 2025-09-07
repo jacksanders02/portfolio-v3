@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { ReactElement } from 'react';
 
 /* eslint-disable @stylistic/max-len -- SVG */
 const Leaf = ({
