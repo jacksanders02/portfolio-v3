@@ -1,0 +1,19 @@
+name: portfolio
+
+services:
+  react-router:
+    build: .
+    command: "npm run start"
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    init: true
+    networks:
+      - nginx
+    restart: always
+
+networks:
+  nginx:
+    name: nginx
+    external: true
