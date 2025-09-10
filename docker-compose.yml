@@ -9,6 +9,8 @@ services:
     ports:
       - "5173:5173"
     init: true
+    env_file:
+      - .env
     networks:
       - nginx
     restart: always
