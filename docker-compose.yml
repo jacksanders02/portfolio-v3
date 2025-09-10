@@ -5,9 +5,9 @@ services:
     build: .
     command: "npm run start"
     expose:
-      - "3000"
+      - "5173"
     ports:
-      - "3000:3000"
+      - "5173:5173"
     init: true
     networks:
       - nginx
