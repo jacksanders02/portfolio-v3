@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactElement } from 'react';
+import debounce from '~/utils/debounce';
 
 interface PathSegment {
   from: { x: number; y: number };
@@ -35,6 +36,12 @@ const MouseTrail = (): ReactElement => {
       }
       lastMousePos.x = event.clientX;
       lastMousePos.y = event.clientY;
+    }
+
+    function handleResize() {
+      if (!ctx) return;
+      ctx.canvas.width = window.innerWidth;
+      ctx.canvas.height = window.innerHeight;
     }
 
     let lastFrame;
@@ -76,13 +83,13 @@ const MouseTrail = (): ReactElement => {
       animationRequestId = requestAnimationFrame(drawPath);
     }
 
-    ctx.canvas.width = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
-
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
 
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('resize', debounce(handleResize, 250));
+    handleResize(); // Set initial size
+
     animationRequestId = requestAnimationFrame(drawPath);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
